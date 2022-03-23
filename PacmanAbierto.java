@@ -32,6 +32,7 @@ public class PacmanAbierto extends Actor
         
              openMouth();
              move();
+             come();
         
                
     }
@@ -53,40 +54,80 @@ public class PacmanAbierto extends Actor
         int currentX=getX();//te da la posicion en x del objeto
         int currentY=getY();//te da la posiscion en y del objetko
         int location;
+        boolean tocando;
+        tocando=isTouching(Pared.class);
         if(Greenfoot.isKeyDown("UP"))
-        {offSetY=-5;
+        {
+            offSetY=-10;
+            setLocation(currentX+offSetX,currentY+offSetY-5);
+            setRotation(-90);
+            
+            if(tocando==true)
+            {
+                offSetY=5;
+                //setLocation(currentX+(offSetX),currentY+(offSetY)-7);
+                
+            }
+            offSetY=0;
+            
             
         }else if(Greenfoot.isKeyDown("DOWN"))
         {
-            offSetY=5;
+            offSetY=10;
+            setLocation(currentX+offSetX,currentY+offSetY+5);
+            if(tocando==true)
+            {
+                offSetY=-5;
+               
+            }
+            setRotation(90);
+            offSetY=0;
+            
         }else if(Greenfoot.isKeyDown("RIGHT"))
         {
-            offSetX=5;
+            offSetX=10;
+            setLocation(currentX+offSetX,currentY+offSetY);
+            setRotation(0);
+            if(tocando==true)
+            {
+                offSetX=-15;
+                setLocation(currentX+(offSetX)-7,currentY+offSetY);
+            }
+            offSetX=0;
+            
         }else if(Greenfoot.isKeyDown("LEFT"))
         {
-            offSetX=-10;
+             offSetX=-10;
+             setLocation(currentX-3+offSetX,currentY+offSetY);
+             setRotation(-180);
+            if(tocando==true)
+            {
+                offSetX=15;
+                setLocation(currentX+(offSetX)+7,currentY+offSetY);
+            }
+            offSetX=0;
+           
         }
         
         
-       	Actor pared=getOneObjectAtOffset​(30,0, Pared.class);
-       	Actor paredAbajo=getOneObjectAtOffset​(0,30, Pared.class);
-       	//Actor paredArriba=getOneObjectAtOffset​(0,-30, Pared.class);
-        
-        if(pared==null)
+       
+           
+           
+       /* 
+        if(tocando==false)
+        {
+            //transporta al obejto a esas coordenadas
+        }else 
+        {
+            
+        }else if(paredAbajo==null)
         {
             setLocation(currentX+3+offSetX,currentY+offSetY);//transporta al obejto a esas coordenadas
-        }else
-        {
-            setLocation(currentX+(offSetX)-7,currentY+offSetY);
-        }
-        if(paredAbajo==null)
-        {
-            setLocation(currentX+3+offSetX,currentY+offSetY);//transporta al obejto a esas coordenadas
-        }else
+        }else if(paredAbajo!=null)
         {
             setLocation(currentX+(offSetX),currentY+(offSetY*(-4)));
         }
-        /*if(paredArriba==null)
+        if(paredArriba==null)
         {
             setLocation(currentX+3+offSetX,currentY+offSetY);//transporta al obejto a esas coordenadas
         }else
@@ -97,6 +138,30 @@ public class PacmanAbierto extends Actor
         
     
     }
+    public void come()
+           {
+               if(isTouching(SmallBall.class)==true)
+               {
+                   removeTouching(SmallBall.class);
+               }
+               if(isTouching(BigBall.class)==true)
+               {
+                   removeTouching(BigBall.class);
+               }
+               if(isTouching(Cherry.class)==true)
+               {
+                   removeTouching(Cherry.class);
+               }
+               if(isTouching(banana.class)==true)
+               {
+                   removeTouching(banana.class);
+               }
+               if(isTouching(fresa.class)==true)
+               {
+                   removeTouching(fresa.class);
+               }
+              
+           }
 }
 
 
